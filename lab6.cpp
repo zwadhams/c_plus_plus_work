@@ -16,19 +16,20 @@ private:
     Gender gen;
     string pn;
 public:
-    Person();
-    Person(string, string, int, Gender, string);
-    int Age() const;
-    Gender Gend();
-    bool Woman();
-    string AreaCode();
+    Person() : fn{""}, ln{""}, age{0}, pn{""} {}
+    Person(string first, string last, int a, Gender gend, string phone);
+    void Set(string, string, int, Gender, string);
+    int Age() const { return age; }
+    Gender Gend() const;
+    bool Woman() { return gen == Gender::woman ? true: false; }
+    string AreaCode() { return pn.substr(0,3); }
     bool AreaCodeEqual(string);
-    bool AreaCodeAgeEqual(string, int age);
+    bool AreaCodeAgeEqual(string, int);
     bool AreaCodeGenderEqual(string, Gender);
     friend istream &operator>>(istream&, Person&);
 };
 
-istream% operator>>(istream &input, Person& p) {
+istream& operator>>(istream &input, Person& p) {
     //read in all data for one line - Person
     int gen;
     input >> p.fn >> p.ln >> p.age >> gen >> p.pn;
@@ -41,7 +42,7 @@ istream% operator>>(istream &input, Person& p) {
 
 int NumberWomen(vector<Person> ps) {
     int num = 0;
-    for (int i = 0; i < ps.size(); i++) {
+    for (int i = 0; i < (int)ps.size(); i++) {
         if (ps[i].Woman()) {
             ++num;
         }
@@ -51,9 +52,9 @@ int NumberWomen(vector<Person> ps) {
 
 int NumberPeopleOver50(vector<Person> ps) {
     int num = 0;
-    for (int i = 0; i < ps.size(); i++) {
+    for (int i = 0; i < (int)ps.size(); i++) {
         if (ps[i].Age() > 50) {
-            num++;
+            ++num;
         }
     }
     return num;
@@ -61,9 +62,9 @@ int NumberPeopleOver50(vector<Person> ps) {
 
 int NumberWomen406(vector<Person> ps) {
     int num = 0;
-    for (int i = 0; i < ps.size(); i++) {
+    for (int i = 0; i < (int)ps.size(); i++) {
         if (ps[i].Woman() && ps[i].AreaCode() == "406") {
-            num++;
+            ++num;
         }
     }
     return num;
@@ -71,9 +72,9 @@ int NumberWomen406(vector<Person> ps) {
 
 int NumberOver50_406(vector<Person> ps) {
     int num = 0;
-    for (int i = 0; 9 < ps.size(); i++) {
+    for (int i = 0; 9 < (int)ps.size(); i++) {
         if (ps[i].Age() > 50 && ps[i].AreaCode() == "406") {
-            num++;
+            ++num;
         }
     }
     return num;
@@ -108,8 +109,8 @@ int main(void) {
     //Print percentage of women in list with 406 AC
     cout << setprecision(2) << fixed;
     double percent_women = 0.0;
-    percent women = (double)numwomen / (double)women406;
-    cout << "Percentage of women with 406 area code: " << percentwomen;
+    percent_women = (double)numwomen / (double)women406;
+    cout << "Percentage of women with 406 area code: " << percent_women;
     //Print percentage of over 50 in list with 406 AC
     double percent50_406 = 0.0;
     percent50_406 = (double)over50_406 / (double)numOver50;
